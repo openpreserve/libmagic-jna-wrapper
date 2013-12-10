@@ -3,6 +3,8 @@
  */
 package org.opf_labs;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.Buffer;
@@ -259,4 +261,43 @@ public class LibmagicJnaWrapper {
 	public int loadCompiledMagic() {
 		return this.load(DEFAULT_MAGIC_PATH);
 	}
+	
+	/**
+	 * Test main method, that acts like `file`
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// Set up libMagicWrapper
+	    LibmagicJnaWrapper libMagicWrapper = new LibmagicJnaWrapper();
+		// Load default magic file
+		libMagicWrapper.loadCompiledMagic();
+		// Go through the arguments and print the mimetype
+		File f = null;
+		String mimetype = null;
+		for(String s:args) {
+			f = new File(s);
+			if(f.exists()) {
+				FileInputStream fis = null;
+				try {
+					fis = new FileInputStream(f);
+					mimetype = libMagicWrapper.getMimeType(fis);
+					fis.close();
+					System.out.println("File: "+s+"\t: "+mimetype);
+				} catch(IOException e) {
+					System.out.println("File: "+s+"\tI/O error");
+				} finally {
+					if(fis!=null) {
+						try {
+							fis.close();
+						} catch(IOException e) {
+						}
+						fis = null;
+					}
+				}
+			} else {
+				System.out.println("File: "+s+"\tdoes not exist");
+			}
+		}
+	}
+	
 }
