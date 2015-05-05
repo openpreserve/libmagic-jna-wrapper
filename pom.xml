@@ -16,7 +16,12 @@
 		<jdk.target.version>1.6</jdk.target.version>
 		<maven.resources.version>2.6</maven.resources.version>
 	</properties>
-	<build>
+    	<scm>
+        	<connection>scm:git:git@github.com:openpreserve/libmagic-jna-wrapper.git</connection>
+        	<developerConnection>scm:git:git@github.com:openpreserve/libmagic-jna-wrapper.git</developerConnection>
+        	<url>git@github.com:openpreserve/libmagic-jna-wrapper.git</url>
+    	</scm>
+    	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
